@@ -68,6 +68,10 @@ const LoginScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 }
+
+
+
+
 const HomeScreen = ({ route }) => {
   const { userInfo } = route.params;
   const [userInfoState, setUserInfoState] = useState(null);
@@ -78,8 +82,8 @@ const HomeScreen = ({ route }) => {
 
   const handleSignIn = (userInfo) => {
     if (userInfo && userInfo.type === "guest") {
-      // If guest user, assign a guest ID
       const guestUser = {
+        //not using id yet
         id: Math.random().toString(36).substring(7),
         name: "Guest",
         profileImage: getRandomProfileImage(),
@@ -87,7 +91,6 @@ const HomeScreen = ({ route }) => {
       setUserInfoState(guestUser);
       AsyncStorage.setItem("@user", JSON.stringify(guestUser));
     } else if (userInfo && userInfo.type === "success") {
-      // If signed in with Google, fetch user profile
       fetchUserProfile(userInfo.authentication.accessToken);
     }
   };
@@ -127,7 +130,6 @@ const HomeScreen = ({ route }) => {
       <Text style={styles.welcomeText}>
         {userInfoState ? `Welcome, ${userInfoState.name}` : "Guest User"}
       </Text>
-      {/* Display profile image */}
       {userInfoState && userInfoState.profileImage && (
         <Image
           source={{ uri: userInfoState.profileImage }}
